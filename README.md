@@ -30,3 +30,18 @@ The Expense Tracker Web Application is a user-friendly tool designed to help ind
 
    ```bash
    git clone https://github.com/yourusername/expense-tracker.git
+   Set Up the Database: Import the provided SQL file to set up the database schema.
+
+Configuration:
+
+   Update the database configuration in config.php.
+
+Run the Application: Use a web server or a local development environment (e.g., XAMPP) to run the application.
+
+Access the Application: Open a web browser and navigate to http://localhost/expense-tracker.
+
+User Registration: Register an account to start tracking your expenses.
+
+Log Expenses: Log your daily expenses and income for better financial management.
+
+
