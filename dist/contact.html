@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+    
+  <!-- Fontawesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  
+  <!-- Additional CSS -->
+  <link href="output.css" rel="stylesheet">
+  
+  <!-- Additional JavaScript -->
+  <!-- <script src="script.js"></script> -->
+  
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header class="bg-blue-500 px-10 text-white py-4">
+    <nav class="flex justify-between items-center w-[92%]  mx-auto">
+        <div>
+            <img class="w-12 object-cover cursor-pointer rounded-full" src="img/logo.png" alt="...">
+        </div>
+        <div
+            class="nav-links duration-500 md:static bg-blue-500 absolute md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto  w-full flex items-center px-5">
+            <ul class="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+                <li>
+                    <a class="hover:text-gray-500" href="index.html">Home</a>
+                </li>
+                <li>
+                    <a class="hover:text-gray-500" href="services.html">Services</a>
+                </li>
+                
+                <li>
+                    <a class="hover:text-gray-500" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="flex items-center gap-6">
+            <i onclick="onToggleMenu(this)" name="menu" class="fa-solid fa-bars text-3xl cursor-pointer md:hidden"></i>
+        </div>
+</header>
+
+  <!-- Hero Section -->
+  <section class="hero bg-cover flex items-center justify-center h-96 text-white" style="background-image: url('https://source.unsplash.com/featured/1280x720/?expense-tracker')">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl font-bold text-black">Track Your Expenses Effortlessly</h1>
+      <a href="services.html" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-6 py-3 rounded-full">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Feature Section -->
+  <section class="features bg-gray-100 py-16">
+    <div class="container mx-auto">
+      <div class="flex flex-wrap items-center justify-center space-y-12">
+
+        <!-- Feature Card 1 -->
+        <div class="w-full md:w-1/2 lg:w-1/3">
+          <div class="max-w-sm mx-auto bg-white shadow rounded-lg overflow-hidden">
+            <div class="flex justify-center items-center h-24 bg-blue-500 text-white">
+              <i class="fas fa-wallet text-3xl"></i>
+            </div>
+            <div class="px-4 py-6">
+              <h2 class="text-xl font-bold mb-2">Expense Tracking</h2>
+              <p class="text-gray-600">Track your expenses efficiently and gain insights into your spending habits.</p>
+              <a href="services.html" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-6 py-3 rounded-full">Track Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Card 2 -->
+        <div class="w-full md:w-1/2 lg:w-1/3">
+          <div class="max-w-sm mx-auto bg-white shadow rounded-lg overflow-hidden">
+            <div class="flex justify-center items-center h-24 bg-blue-500 text-white">
+              <i class="fas fa-chart-pie text-3xl"></i>
+            </div>
+            <div class="px-4 py-6">
+              <h2 class="text-xl font-bold mb-2">Budgeting</h2>
+              <p class="text-gray-600">Manage your finances by setting up budgets and tracking your spending against them.</p>
+              <a href="services.html" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-6 py-3 rounded-full">Start Budgeting</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Card 3 -->
+        <div class="w-full md:w-1/2 lg:w-1/3">
+          <div class="max-w-sm mx-auto bg-white shadow rounded-lg overflow-hidden">
+            <div class="flex justify-center items-center h-24 bg-blue-500 text-white">
+              <i class="fas fa-cogs text-3xl"></i>
+            </div>
+            <div class="px-4 py-6">
+              <h2 class="text-xl font-bold mb-2">Customization</h2>
+              <p class="text-gray-600">Tailor the expense tracker to your needs with customizable categories and tags.</p>
+              <a href="services.html" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-6 py-3 rounded-full">Customize</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Contact Form -->
+  <section class="contact-form py-16 bg-gray-300 text-white">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-center mb-8">
+        <h2 class="text-3xl font-bold">Get In Touch</h2>
+      </div>
+      <div class="max-w-lg mx-auto">
+        <!-- onsubmit="sendEmail(); reset(); return false;" -->
+        <form action="#" name="submitt-to-google-sheet" class="flex flex-wrap">
+          <div class="w-full mb-4">
+            <label for="name" class="mb-1">Name</label>
+            <input type="text" id="name" name="Name" class="w-full bg-white px-4 py-3 rounded focus:outline-none" placeholder="Your Name" required>
+          </div>
+          <div class="w-full mb-4">
+            <label for="email" class="mb-1">Email</label>
+            <input type="email" id="email" name="Contact Email" class="w-full bg-white px-4 py-3 rounded focus:outline-none" placeholder="Your Email" required>
+          </div>
+          <div class="w-full mb-4">
+            <label for="message" class="mb-1">Message</label>
+            <textarea id="message" name="Message" class="w-full bg-white px-4 py-3 rounded focus:outline-none" rows="4" placeholder="Your Message"></textarea>
+          </div>
+          <div class="w-full">
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-6 py-3 rounded-full">Send Message</button>
+          </div>
+        </form>
+        <span id="cnt" class="text-green-300 mt-10 block"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="blog bg-white py-16">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-center mb-8">
+        <h2 class="text-3xl font-bold">Recent Blog Posts</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Blog Post 1 -->
+        <div class="max-w-sm mx-auto bg-gray-100 shadow rounded-lg overflow-hidden">
+          <img src="img/expense.jpg" alt="Blog Post 1" class="h-48 w-full object-cover object-center">
+          <div class="p-6">
+            <h3 class="font-bold mb-2">10 Reasons why tou track  your expenses </h3>
+            <p class="text-gray-600">Tracking your expenses helps you map out your cash flow and course-correct your spending pattern. This helps you save and grow your wealth...</p>
+            <a href="https://shorturl.at/fwAIO" target="_blank" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-4 py-2 rounded">Read More</a>
+          </div>
+        </div>
+       
+        <!-- Blog Post 2 -->
+        <div class="max-w-sm mx-auto bg-gray-100 shadow rounded-lg overflow-hidden">
+          <img src="img/benefits.jpg" alt="Blog Post 2" class="h-48 w-full object-cover object-center">
+          <div class="p-6">
+            <h3 class="font-bold mb-2">Why should you track your expenses?</h3>
+            <p class="text-gray-600 text-ellipsis">You can then start ensuring that you’re spending your money wisely. When you track your spending, you can...</p>
+            <a href="https://shorturl.at/hozN4" target="_blank" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-4 py-2 rounded">Read More</a>
+          </div>
+        </div>
+
+        <!-- Blog Post 3 -->
+        <div class="max-w-sm mx-auto bg-gray-100 shadow rounded-lg overflow-hidden">
+          <img src="img/expense-tracking.jpg" alt="Blog Post 3" class="h-48 w-full object-cover object-center">
+          <div class="p-6">
+            <h3 class="font-bold mb-2">Why should you keep a daily record of expenses?</h3>
+            <p class="text-gray-600">Keeping a daily record of your expenses by tracking receipts, invoices, and other outgoing expenses improves the financial health of your budget...</p>
+            <a href="https://shorturl.at/cIPT0" target="_blank" class="mt-4 inline-block bg-blue-500 hover:bg-blue-600 transition-all duration-200 text-white px-4 py-2 rounded">Read More</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+
+
+    <!-- Newsletter Subscription -->
+    <section class="newsletter py-16">
+        <div class="container mx-auto">
+          <div class="flex items-center justify-center mb-8">
+            <h2 class="text-3xl font-bold">Subscribe to Our Newsletter</h2>
+          </div>
+          <div class="max-w-md mx-auto">
+            <form action="#" name="submit-to-google-sheet" class="flex flex-wrap items-center justify-center subs-form">
+              <input type="email" name="Email" class="w-full md:w-3/4 px-4 py-3 rounded-l-lg focus:outline-none" placeholder="Enter your email address" required>
+              <button type="submit" id="send-btn" class="w-full md:w-auto flex items-center justify-center px-4 py-3 rounded-r-lg bg-blue-500 hover:bg-blue-600 text-white transition-all duration-200">Subscribe</button>
+            </form>
+            <span id="msg" class="text-green-300 mt-10 block"></span>
+          </div>
+        </div>
+      </section>
+  
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-900 text-white py-4 px-6 ">
+    <div class="container mx-auto flex justify-between items-center">
+      <ul class="flex space-x-4">
+        <li><a href="#" class="hover:text-gray-400">Home</a></li>
+        <li><a href="#" class="hover:text-gray-400">Features</a></li>
+        <li><a href="#" class="hover:text-gray-400">Testimonials</a></li>
+        <li><a href="#" class="hover:text-gray-400">Blog</a></li>
+        <li><a href="#" class="hover:text-gray-400">Contact</a></li>
+      </ul>
+      <ul class="flex space-x-4">
+        <a href="#" class="text-gray-400 hover:text-blue-500 transition-all duration-200">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-blue-500 transition-all duration-200">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="#" class="text-gray-400 hover:text-blue-500 transition-all duration-200">
+          <i class="fab fa-github"></i>
+        </a>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Additional libraries -->
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script>
+    const navLinks = document.querySelector('.nav-links')
+        function onToggleMenu(e){
+            e.name = e.name === 'menu' ? 'close' : 'menu'
+            navLinks.classList.toggle('top-[9%]')
+        }
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbydCwWSegcvMkHOXYEWBOYBnEcGTzu_ynXzATous3xruLnOlRNHa91TaHuaOK5tS1fk/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const formm = document.forms['submitt-to-google-sheet']
+    const msg = document.getElementById("msg")
+    const cnt = document.getElementById("cnt")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTML = "Thank You For Subscribing!";
+            setTimeout(() => {
+                msg.innerHTML = "";
+            }, 5000);
+            form.reset();
+        })
+        // .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+    formm.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(formm)})
+        .then(response => {
+            cnt.innerHTML = "Message Sent Successful!";
+            setTimeout(() => {
+                cnt.innerHTML = "";
+            }, 5000);
+            formm.reset();
+        })
+        // .then(response => console.log('Success!', response))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+  
+</body>
+
+</html>

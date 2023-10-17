@@ -1,0 +1,14 @@
+{
+  "name": "expense",
+  "version": "1.0.0",
+  "description": "A website to track and monitor one's expenses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Desmond",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
