@@ -1,8 +1,8 @@
 <?php
 include("connections.php");
-if(isset($_GET['deleteid'])){
-    $id = $_GET['deleteid'];
-    $sql = "delete from `budgets` where id=$id";
+if(isset($_GET['deletid'])){
+    $id = $_GET['deletid'];
+    $sql = "delete from `expense` where id=$id";
     $result = mysqli_query($con, $sql);
     if ($result) {
         // echo "<script>alert('Budget deleted successfully!');</script>";

@@ -20,16 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user_data = mysqli_fetch_assoc($result);
         if (password_verify($password, $user_data['password'])) {
           $_SESSION['user_id'] = $user_data['user_id'];
-          header("Location: dashboard.php");
+          header("Location: dash.php");
           die;
         }
       }
     }
     // $error_message = "Invalid username or password";
-    echo "wrong username or password!";
+    echo "<script>alert('wrong username or password!')</script> ";
   } else {
     $error_message = "Please Fill Up All Spaces";
-    echo "wrong username or password!";
+    echo "<script>alert('wrong username or password!')</script> ";
   }
 }
 ?>

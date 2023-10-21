@@ -17,6 +17,19 @@ function check_login($con)
     die;
 }
 
+function retrieve_account($con) {
+    if (isset($_SESSION['user_id'])) {
+        $id = $_SESSION['user_id'];
+        $query = "SELECT * FROM `account` WHERE `user_id` = '$id' LIMIT 1";
+
+        $result = mysqli_query($con, $query);
+        if ($result && mysqli_num_rows($result) > 0) {
+            $account_data = mysqli_fetch_assoc($result);
+            return $account_data;
+        }
+    }
+}
+
 
 function random_num($length)
 {
@@ -35,6 +48,16 @@ function random_num($length)
 function get_recent_transactions($con, $user_id)
 {
     $query = "SELECT * FROM budgets WHERE user_id = '$user_id' LIMIT 10";
+
+    $result = mysqli_query($con, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        return $result;
+    }
+    return null;
+}
+function get_recent_expenseIncome($con, $user_id)
+{
+    $query = "SELECT * FROM expense WHERE user_id = '$user_id' LIMIT 10";
 
     $result = mysqli_query($con, $query);
     if ($result && mysqli_num_rows($result) > 0) {

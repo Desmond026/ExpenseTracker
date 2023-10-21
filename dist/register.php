@@ -21,10 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     		VALUES('$user_id', '$username', '$hashedPassword', '$fullname')";
     mysqli_query($con, $query);
 
+    $sql = "INSERT INTO `account` (user_id) 
+        VALUES ($user_id)";
+
+    mysqli_query($con, $sql);
+
     header("Location: login.php");
     die;
   } else {
-    $error_message = "Please enter some valid information";
+    // $error_message = "Please enter some valid information";
+    echo "<script>alert('Please enter some valid information')</script> ";
+
   }
 }
 
