@@ -14,17 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   // $fullname = $_POST['Fname'];
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-  if (!empty($username) && !empty($password) && !empty($fullname) && !is_numeric($username)) {
-    //save to database
+    // Check for duplicate email
+    $check_query = "SELECT * FROM user WHERE username = '$username'";
+    $check_result = mysqli_query($con, $check_query);
+    if (mysqli_num_rows($check_result) > 0) {
+      // The email already exists
+      echo "<script>alert('This email is already registered. Please use a different email.');</script>";
+    } else if (!empty($username) && !empty($password) && !empty($fullname) && !is_numeric($username)) {
+    //Email is unique, proceed with registration and save to database
     $user_id = random_num(20);
     $query = "INSERT INTO  user (user_id, username, password, fullname) 
     		VALUES('$user_id', '$username', '$hashedPassword', '$fullname')";
     mysqli_query($con, $query);
-
-    $sql = "INSERT INTO `account` (user_id) 
-        VALUES ($user_id)";
-
-    mysqli_query($con, $sql);
+   
 
     header("Location: login.php");
     die;

@@ -8,8 +8,6 @@ include("functions.php");
 $user_data = check_login($con);
 $account_data = retrieve_account($con);
 $user_id = $user_data['user_id'];
-$result = get_recent_transactions($con, $user_id);
-$resultts = get_recent_expenseIncome($con, $user_id);
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -318,70 +316,42 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <!-- Main -->
             <main class="flex items-center justify-center flex-1 px-4 py-8">
               
+            
             <div id="expenseTracker" class="wrapper">
-              <h2>Expense Tracker</h2>
+      <h2>Expense Tracker</h2>
 
-              <div class="container">
-                <h4>Your Balance</h4>
-                <h1 id="balance">$<?php echo $account_data['balance'] ?></h1>
+      <div class="container">
+        <h4>Your Balance</h4>
+        <h1 id="balance">$0.00</h1>
 
-                <div class="inc-exp-container">
-                  <div>
-                    <h4>Income</h4>
-                    <p id="money-plus" class="money plus">$<?php echo $account_data['income'] ?></p>
-                  </div>
-                  <div>
-                    <h4>Expense</h4>
-                    <p id="money-minus" class="money minus">$<?php echo $account_data['expense'] ?></p>
-                  </div>
-                </div>
+        <div class="inc-exp-container">
+          <div>
+            <h4>Income</h4>
+            <p id="money-plus" class="money plus">+$0.00</p>
+          </div>
+          <div>
+            <h4>Expense</h4>
+            <p id="money-minus" class="money minus">-$0.00</p>
+          </div>
+        </div>
 
-                <h3>History</h3>
-                <ul id="list" class="list">
-                <?php 
-                    if (mysqli_num_rows($resultts) > 0) {
+        <h3>History</h3>
+        <ul id="list" class="list"></ul>
 
-                        # code...
-                        while ($row = mysqli_fetch_assoc($resultts)) {
-                            $id = $row['id'];
-                            echo "
-                                <li>
-                                {$row['type']} 
-                                <span>{$row['comodity']}</span> 
-                                <span>{$row['amount']}</span> 
-                                <button tittle='Delete' style='background-color: #c0392b; padding: 5px; color: #fff;'><a href='deleteExpense.php?deletid=$id'>x</a></button>
-                                
-                            ";
-                        }
-                    }else {
-                        echo "<tr>
-                          <td colspan='3'>No Recent Managements</td>
-                        </tr>";
-                      }
-                    ?>
-                </ul>
-
-                <h3>New transaction</h3>
-                <form id="form" method="post" action="addExpense.php">
-                  <div class="form-control">
-                    <label for="amount">Transaction type</label><br />
-                    <select name="type">
-                      <option value="income" selected>Income</option>
-                      <option value="expense">Expense</option>
-                    </select>
-                  </div>
-                  <div class="form-control">
-                    <label for="text">Commodity</label>
-                    <input type="text" id="text" name="commodity" placeholder="Enter text..." />
-                  </div>
-                  <div class="form-control">
-                    <label for="amount">Amount($)</label>
-                    <input type="text" id="amount" name="amount" placeholder="Enter amount ..." />
-                  </div>
-                  <button class="btn">Add transaction</button>
-                </form>
-              </div>
-            </div>
+        <h3>New transaction</h3>
+        <form id="form">
+          <div class="form-control">
+            <label for="text">Comodity</label>
+            <input type="text" id="text" placeholder="Enter text..." />
+          </div>
+          <div class="form-control">
+            <label for="amount">Amount($) </label>
+            <input type="text" id="amount" placeholder="Enter amount ..." />
+          </div>
+          <button class="btn">Add transaction</button>
+        </form>
+      </div>
+    </div>
               <!-- Content -->
               <div id="managementPage" class="hidden wrapper">
                 <div class="container mx-auto">
@@ -390,11 +360,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                   <label for="category">Category:</label>
                   <input type="text" name="category" class="mb-6">
 
-                  <label for="limit">Month:</label>
-                  <input type="text" name="limit" class="mb-6">
+                  <label for="month">Month:</label>
+                  <input type="text" name="monthly" class="mb-6">
 
                   <label for="monthly">Monthly Limit:</label>
-                  <input type="number" name="monthly" class="mb-6">
+                  <input type="number" name="limit" class="mb-6">
 
                   <label for="descriptioned">Description:</label>
                   <textarea name="descriptioned" cols="40" rows="10"></textarea>
@@ -403,34 +373,47 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 </form>
                 <h2 class="text-center text-blue-500">Budget List </h2>
                 <table style="width: 100%;">
+  
+  <thead>
   <tr style="color: black;">
     <th>Category</th>
     <th>Month</th>
     <th>Description</th>
     <th>Limit</th>
     <th>Operation</th>
-  </tr>
-  <?php
-  if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $id = $row['id'];
-      echo
-      "<tr>
-        <td>{$row['category']}</td>
-        <td>{$row['monthly']}</td>
-        <td>{$row['descriptioned']}</td>
-        <td>$ {$row['limit_amount']}</td>
-        <td>
-          <button style='background-color: #c0392b; padding: 5px; color: #fff;'><a href='delete.php?deleteid=$id'>Delete</a></button>
-        </td>
-      </tr>";
-    }
-  } else {
-    echo "<tr>
-      <td colspan='3'>No Recent Managements</td>
-    </tr>";
-  }
-  ?>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    $sql = "SELECT * FROM budgets WHERE user_id = '$user_id' LIMIT 10";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $id = $row['id'];
+            $cat = $row['category'];
+            $mon = $row['monthly'];
+            $des = $row['descriptioned'];
+            $lim = $row['limit_amount'];
+            echo "
+            <tr>
+            <td>$cat</td>
+            <td>$mon</td>
+            <td>$des</td>
+            <td>$lim</td>
+            <td>
+              <button style='background-color: #c0392b; padding: 5px; color: #fff;'><a href='delete.php?deleteid=$id'>Delete</a></button>
+              </td>
+            ";
+
+        }
+    } else {
+        echo "<tr>
+          <td colspan='3'>No Recent Managements</td>
+        </tr>";
+      }
+    ?>
+  </tbody>
+ 
 </table>
 
                 </div>
@@ -510,6 +493,128 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     });
   });
 </script>
+<script>
+      const balance = document.getElementById("balance");
+      const money_plus = document.getElementById("money-plus");
+      const money_minus = document.getElementById("money-minus");
+      const list = document.getElementById("list");
+      const form = document.getElementById("form");
+      const text = document.getElementById("text");
+      const amount = document.getElementById("amount");
+
+      const localStorageTransactions = JSON.parse(
+        localStorage.getItem("transactions")
+      );
+
+      let transactions =
+        localStorage.getItem("transactions") !== null
+          ? localStorageTransactions
+          : [];
+
+      // Add transaction
+      function addTransaction(e) {
+        e.preventDefault();
+
+        if (text.value.trim() === "" || amount.value.trim() === "") {
+          alert("Please add a text and amount");
+        } else {
+          const transaction = {
+            id: generateID(),
+            text: text.value,
+            amount: +amount.value,
+          };
+
+          transactions.push(transaction);
+
+          addTransactionDOM(transaction);
+
+          updateValues();
+
+          updateLocalStorage();
+
+          text.value = "";
+          amount.value = "";
+        }
+      }
+
+      // Generate random ID
+      function generateID() {
+        return Math.floor(Math.random() * 100000000);
+      }
+
+      // Add transactions to DOM list
+      function addTransactionDOM(transaction) {
+        // Get sign
+        const sign = transaction.amount < 0 ? "-" : "+";
+
+        const item = document.createElement("li");
+
+        // Add class based on value
+        item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+
+        item.innerHTML = `
+    ${transaction.text} <span>${sign}${Math.abs(
+          transaction.amount
+        )}</span> <button class="delete-btn" onclick="removeTransaction(${
+          transaction.id
+        })">x</button>
+  `;
+
+        list.appendChild(item);
+      }
+
+      // Update the balance, income and expense
+      function updateValues() {
+        const amounts = transactions.map((transaction) => transaction.amount);
+
+        const total = amounts
+          .reduce((acc, item) => (acc += item), 0)
+          .toFixed(2);
+
+        const income = amounts
+          .filter((item) => item > 0)
+          .reduce((acc, item) => (acc += item), 0)
+          .toFixed(2);
+
+        const expense = (
+          amounts
+            .filter((item) => item < 0)
+            .reduce((acc, item) => (acc += item), 0) * -1
+        ).toFixed(2);
+
+        balance.innerText = `$${total}`;
+        money_plus.innerText = `$${income}`;
+        money_minus.innerText = `$${expense}`;
+      }
+
+      // Remove transaction by ID
+      function removeTransaction(id) {
+        transactions = transactions.filter(
+          (transaction) => transaction.id !== id
+        );
+
+        updateLocalStorage();
+
+        init();
+      }
+
+      // Update local storage transactions
+      function updateLocalStorage() {
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+      }
+
+      // Init app
+      function init() {
+        list.innerHTML = "";
+
+        transactions.forEach(addTransactionDOM);
+        updateValues();
+      }
+
+      init();
+
+      form.addEventListener("submit", addTransaction);
+    </script>
 
 </body>
 </html>

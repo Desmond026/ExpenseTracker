@@ -45,23 +45,5 @@ function random_num($length)
     return $text;
 }
 
-function get_recent_transactions($con, $user_id)
-{
-    $query = "SELECT * FROM budgets WHERE user_id = '$user_id' LIMIT 10";
 
-    $result = mysqli_query($con, $query);
-    if ($result && mysqli_num_rows($result) > 0) {
-        return $result;
-    }
-    return null;
-}
-function get_recent_expenseIncome($con, $user_id)
-{
-    $query = "SELECT * FROM expense WHERE user_id = '$user_id' LIMIT 10";
 
-    $result = mysqli_query($con, $query);
-    if ($result && mysqli_num_rows($result) > 0) {
-        return $result;
-    }
-    return null;
-}
