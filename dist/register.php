@@ -26,7 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $query = "INSERT INTO  user (user_id, username, password, fullname) 
     		VALUES('$user_id', '$username', '$hashedPassword', '$fullname')";
     mysqli_query($con, $query);
-   
+    $sql = "INSERT INTO `account` (user_id) 
+    VALUES ($user_id)";
+
+mysqli_query($con, $sql);
 
     header("Location: login.php");
     die;
